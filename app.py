@@ -6,13 +6,13 @@ import numpy as np
 from flask import Flask,request,jsonify
 
 
-
-tf.keras.models.load_model('model.h5')
 app = Flask(__name__)
+
+#tf.keras.models.load_model('model.h5')
 # load json and create model
-json_file = open('model.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
+#json_file = open('model.json', 'r')
+#loaded_model_json = json_file.read()
+#json_file.close()
 
 loaded_model = tf.keras.models.load_model('model.h5')
 
