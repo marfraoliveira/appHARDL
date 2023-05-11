@@ -33,7 +33,7 @@ def read_text_file(file_path):
     file = file.reshape(2,80,3,1)
     return file
 
-teste = read_text_file('vetor.txt')
+#teste = read_text_file('vetor.txt')
 
 
 @app.route('/predict',methods=['POST'])
