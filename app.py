@@ -36,7 +36,9 @@ def read_text_file(file_path):
 @app.route('/predict',methods=['POST'])
 def predict():
     file = request.files['file']
-    return jsonify({'placement':str('classes_x')})
+    classes_x = read_text_file(file)
+    class_prediction = loaded_model.predict(classes_x) 
+    return jsonify({'placement':str(class_prediction)})
 
 #teste = read_text_file('vetor.txt')
 '''
