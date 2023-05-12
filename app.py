@@ -5,7 +5,6 @@ import tensorflow as tf
 import numpy as np
 from flask import Flask,request,jsonify
 
-
 app = Flask(__name__)
 
 #tf.keras.models.load_model('model.h5')
@@ -37,10 +36,7 @@ def read_text_file(file_path):
 @app.route('/predict',methods=['POST'])
 def predict():
     file = request.files['file']
-    classes_x = read_text_file(file)
-    class_prediction = loaded_model.predict(classes_x) 
-    result=np.argmax(class_prediction,axis=1)
-    return jsonify({'placement':str(classes_x)})
+    return jsonify({'placement':str('classes_x')})
 
 #teste = read_text_file('vetor.txt')
 '''
