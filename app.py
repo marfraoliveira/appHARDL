@@ -1,19 +1,18 @@
 from flask import Flask, render_template, request
 from tensorflow.keras.models import load_model
-from keras.models import load_model
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 from flask import Flask,request,jsonify
 
 app = Flask(__name__)
 
+loaded_model = load_model('model.h5')
 #tf.keras.models.load_model('model.h5')
 # load json and create model
 #json_file = open('model.json', 'r')
 #loaded_model_json = json_file.read()
 #json_file.close()
 
-loaded_model = tf.keras.models.load_model('model.h5')
 
 
 @app.route('/')
@@ -38,7 +37,8 @@ def predict():
     file = request.files['file']
     classes_x = read_text_file(file)
     class_prediction = loaded_model.predict(classes_x) 
-    return jsonify({'placement':str(class_prediction)})
+    result=np.argmax(class_prediction,axis=1)
+    return jsonify({'placement':str(result)})
 
 #teste = read_text_file('vetor.txt')
 '''
