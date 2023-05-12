@@ -1,29 +1,25 @@
-from flask import Flask, render_template, request
-from tensorflow.keras.models import load_model
+from flask import Flask, render_template, request,jsonify
 import numpy as np
-import tensorflow as tf
-from flask import Flask,request,jsonify
+import keras.models
+import re
+import sys 
+import os
+import base64
+global graph, model
 
-app = Flask(__name__)
+from keras.models import model_from_json
 
-loaded_model = load_model('model.h5')
-#tf.keras.models.load_model('model.h5')
-# load json and create model
-#json_file = open('model.json', 'r')
-#loaded_model_json = json_file.read()
-#json_file.close()
+# opening and store file in a variable
 
+json_file = open('model.json','r')
+loaded_model_json = json_file.read()
+json_file.close()
 
-
-@app.route('/')
-def index():
-    return "Eficiência de Energia em dispositivos móveis"
-
-
-def load_file(filename):
-    file = read_text_file(filename)
-    data = np.loadtxt(file)
-    return data
+loaded_model = model_from_json(loaded_model_json)
+# load weights into new model
+loaded_model.load_weights("model.h5")
+print("Loaded Model from disk")
+loaded_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
 def read_text_file(file_path):
@@ -32,16 +28,14 @@ def read_text_file(file_path):
     return file
 
 
-@app.route('/predict',methods=['POST'])
-def predict():
-    file = request.files['file']
-    classes_x = read_text_file(file)
-    class_prediction = loaded_model.predict(classes_x) 
-    result=np.argmax(class_prediction,axis=1)
-    return jsonify({'placement':str(result)})
+app = Flask(__name__)
 
-#teste = read_text_file('vetor.txt')
-'''
+
+@app.route('/')
+def index_view():
+    return ('index.html')
+
+
 @app.route('/predict',methods=['POST'])
 def predict():
     file = request.files['file']
@@ -60,8 +54,6 @@ def predict():
        return jsonify({'placement':str('Em Pé')})
     if result.max() == 5:
        return jsonify({'placement':str('Deitado')})
-'''
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(debug=True, port=5000)
