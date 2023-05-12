@@ -33,8 +33,17 @@ def read_text_file(file_path):
     file = file.reshape(2,80,3,1)
     return file
 
-#teste = read_text_file('vetor.txt')
 
+@app.route('/predict',methods=['POST'])
+def predict():
+    file = request.files['file']
+    classes_x = read_text_file(file)
+    class_prediction = loaded_model.predict(classes_x) 
+    result=np.argmax(class_prediction,axis=1)
+    return jsonify({'placement':str(classes_x)})
+
+#teste = read_text_file('vetor.txt')
+'''
 @app.route('/predict',methods=['POST'])
 def predict():
     file = request.files['file']
@@ -53,6 +62,7 @@ def predict():
        return jsonify({'placement':str('Em Pé')})
     if result.max() == 5:
        return jsonify({'placement':str('Deitado')})
+'''
 
 if __name__ == '__main__':
     app.run(debug=True)
