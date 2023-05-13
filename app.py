@@ -42,18 +42,7 @@ def predict():
      classes_x = read_text_file(file)
      class_prediction = loaded_model.predict(classes_x) 
      result=np.argmax(class_prediction,axis=1)
-     if result.max() == 0:
-        return jsonify({'placement':'Andando'})
-     if result.max() == 1:
-        return jsonify({'placement':'Correndo'})
-     if result.max() == 2:
-        return jsonify({'placement':'Subindo Escadas'})
-     if result.max() == 3:
-        return jsonify({'placement':'Descendo Escadas'})
-     if result.max() == 4:
-        return jsonify({'placement':'Em Pé'})
-     if result.max() == 5:
-        return jsonify({'placement':'Deitado'})
+     return jsonify({'placement':result})
 
 
 
