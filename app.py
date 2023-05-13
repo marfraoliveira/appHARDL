@@ -43,17 +43,17 @@ def predict():
      class_prediction = loaded_model.predict(classes_x) 
      result=np.argmax(class_prediction,axis=1)
      if result.max() == 0:
-        return jsonify({'placement':str('Andando')})
+        return jsonify({'placement':'Andando'})
      if result.max() == 1:
-        return jsonify({'placement':str('Correndo')})
+        return jsonify({'placement':'Correndo'})
      if result.max() == 2:
-        return jsonify({'placement':str('Subindo Escadas')})
+        return jsonify({'placement':'Subindo Escadas'})
      if result.max() == 3:
-        return jsonify({'placement':str('Descendo Escadas')})
+        return jsonify({'placement':'Descendo Escadas'})
      if result.max() == 4:
-        return jsonify({'placement':str('Em Pé')})
+        return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
-        return jsonify({'placement':str('Deitado')})
+        return jsonify({'placement':'Deitado'})
 
 
 
