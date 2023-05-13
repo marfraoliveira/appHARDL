@@ -42,7 +42,7 @@ def predict():
      classes_x = read_text_file(file)
      class_prediction = loaded_model.predict(classes_x) 
      result=np.argmax(class_prediction,axis=1)
-     return jsonify({'placement':result})
+     return jsonify({'placement':float(result)})
 
 
 
