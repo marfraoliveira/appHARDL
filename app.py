@@ -38,11 +38,9 @@ def index_view():
 
 @app.route('/predict',methods=['POST'])
 def predict():
-     @app.route('/predict',methods=['POST'])
-    def predict():
-         file = request.files['file']
-         classes_x = read_text_file(file)
-         class_prediction = np.argmax(loaded_model.predict(classes_x),axis=1)
+     file = request.files['file']
+     classes_x = read_text_file(file)
+     class_prediction = np.argmax(loaded_model.predict(classes_x),axis=1)
      result = class_prediction
      if result.max() == 0:
         return jsonify({'placement':('Andando')})
@@ -56,6 +54,8 @@ def predict():
         return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
         return jsonify({'placement':'Deitado'})
+ 
+
 
 
 
@@ -64,11 +64,11 @@ if __name__ == '__main__':
     
     
     '''
-    @app.route('/predict',methods=['POST'])
-    def predict():
-         file = request.files['file']
-         classes_x = read_text_file(file)
-         class_prediction = np.argmax(loaded_model.predict(classes_x),axis=1)
+@app.route('/predict',methods=['POST'])
+def predict():
+     file = request.files['file']
+     classes_x = read_text_file(file)
+     class_prediction = np.argmax(loaded_model.predict(classes_x),axis=1)
      result = class_prediction
      if result.max() == 0:
         return jsonify({'placement':('Andando')})
@@ -81,6 +81,7 @@ if __name__ == '__main__':
      if result.max() == 4:
         return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
-
+        return jsonify({'placement':'Deitado'})
        '''
+
 
