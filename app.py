@@ -1,13 +1,19 @@
-from flask import Flask, render_template, request,jsonify
+from flask import Flask,request,jsonify,make_response
 import numpy as np
+import pandas as pd
 import keras.models
-import re
-import sys 
-import os
-import base64
-global graph, model
-
 from keras.models import model_from_json
+from itens import identificacao,movimento
+import json
+#from werkzeug.utils import secure_filename
+#import re
+#import sys 
+#import os
+#global graph, model
+#from werkzeug.utils import secure_filename
+#ALLOWED_EXTENSIONS = {'csv'}
+
+app = Flask(__name__)
 
 # opening and store file in a variable
 
@@ -22,26 +28,27 @@ print("Loaded Model from disk")
 loaded_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-def read_text_file(file_path):
+def read_text_file(file):
     #request.get_json()
-    file = np.loadtxt(file_path)
+    file = np.asarray(file)
     file = file.reshape(2,80,3,1)
     return file
 
 
-app = Flask(__name__)
 
-
-@app.route('/')
+@app.route('/',methods=['GET'])
 def index_view():
-    return ('index.html')
+    return jsonify(identificacao)
 
 @app.route('/predict',methods=['POST'])
 def predict():
      file = request.files['file']
-     classes_x = read_text_file(file)
-     class_prediction = np.argmax(loaded_model.predict(classes_x),axis=1)
+     load_file = np.loadtxt(file,delimiter=',')
+     load_file = load_file.reshape(2,80,3,1)
+     print(load_file.ndim)
+     class_prediction = np.argmax(loaded_model.predict(load_file),axis=1)
      result = class_prediction
+     print(class_prediction)
      if result.max() == 0:
         return jsonify({'placement':('Andando')})
      if result.max() == 1:
@@ -54,13 +61,10 @@ def predict():
         return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
         return jsonify({'placement':'Deitado'})
- 
-
-
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='127.0.0.1',port=5000)
     
     
     '''
@@ -82,6 +86,11 @@ def predict():
         return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
         return jsonify({'placement':'Deitado'})
-       '''
+       
 
+#%%
+vetor = np.random.rand(480)
+file = vetor.reshape(2,80,3,1)
+np.savetxt('vetor17.txt', vetor)
 
+'''
