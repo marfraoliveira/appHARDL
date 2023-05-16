@@ -47,6 +47,8 @@ def predict():
      load_file = load_file.reshape(2,80,3,1)
      print(load_file.ndim)
      class_prediction = np.argmax(loaded_model.predict(load_file),axis=1)
+     return('ola')   
+'''
      result = class_prediction
      print(class_prediction)
      if result.max() == 0:
@@ -61,7 +63,7 @@ def predict():
         return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
         return jsonify({'placement':'Deitado'})
-
+'''
 
 if __name__ == '__main__':
     app.run(debug=True)
