@@ -45,7 +45,7 @@ def predict():
      file = request.files['file']
      load_file = np.loadtxt(file,delimiter=',')
      load_file = load_file.reshape(2,80,3,1)
-     #print(load_file.ndim)
+     print(load_file.ndim)
      #class_prediction = np.argmax(loaded_model.predict(load_file),axis=1)
      return('ola')   
 '''
