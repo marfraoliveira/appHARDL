@@ -32,7 +32,7 @@ print('Modelo carregdo com sucesso!!!')
 def read_text_file(file):
     #request.get_json()
     file = np.asarray(file)
-    file = file.reshape(107,80,3,1)
+    file = file.reshape(1,80,3,1)
     return file
 
 
@@ -91,11 +91,12 @@ def predict():
         return jsonify({'placement':'Em Pé'})
      if result.max() == 5:
         return jsonify({'placement':'Deitado'})
-       
+'''       
 
 #%%
-vetor = np.random.rand(480)
-file = vetor.reshape(2,80,3,1)
-np.savetxt('vetor17.txt', vetor)
-
 '''
+vetor = np.random.rand(720)
+#file = vetor.reshape(2,80,3,1)
+np.savetxt('vetor20.txt', vetor)
+'''
+
