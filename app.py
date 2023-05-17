@@ -26,7 +26,7 @@ json_file.close()
 load_model =model_from_json(load)
 load_model.load_weights('model.h5')
 load_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-print('Load model')
+print('Modelo carregdo com sucesso!!!')
 
 
 def read_text_file(file):
