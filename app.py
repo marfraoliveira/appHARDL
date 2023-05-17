@@ -18,20 +18,21 @@ app = Flask(__name__)
 # opening and store file in a variable
 
 json_file = open('model.json','r')
-loaded_model_json = json_file.read()
+
+load=json_file.read()
+
 json_file.close()
 
-loaded_model = model_from_json(loaded_model_json)
-# load weights into new model
-loaded_model.load_weights("model.h5")
-print("Loaded Model from disk")
-loaded_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+load_model =model_from_json(load)
+load_model.load_weights('model.h5')
+load_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+print('Load model')
 
 
 def read_text_file(file):
     #request.get_json()
     file = np.asarray(file)
-    file = file.reshape(2,80,3,1)
+    file = file.reshape(107,80,3,1)
     return file
 
 
@@ -45,7 +46,7 @@ def predict():
     file = request.files['file']
     load_file = np.loadtxt(file,delimiter=',')
     dataShaped = read_text_file(load_file)
-    class_prediction = np.argmax(loaded_model.predict(dataShaped),axis=1)
+    class_prediction = np.argmax(load_model.predict(dataShaped),axis=1)
     class_prediction = {"campo":class_prediction}
     encodedNumpyData = json.dumps(class_prediction, cls=NumpyArrayEncoder)
     return(encodedNumpyData)
