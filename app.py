@@ -5,13 +5,13 @@ import keras.models
 from keras.models import model_from_json
 from itens import identificacao,movimento
 import json
-#from werkzeug.utils import secure_filename
-#import re
-#import sys 
-#import os
-#global graph, model
-#from werkzeug.utils import secure_filename
-#ALLOWED_EXTENSIONS = {'csv'}
+from json import JSONEncoder
+
+class NumpyArrayEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return JSONEncoder.default(self, obj)
 
 app = Flask(__name__)
 
@@ -42,12 +42,14 @@ def index_view():
 
 @app.route('/predict',methods=['POST'])
 def predict():
-     file = request.files['file']
-     load_file = np.loadtxt(file,delimiter=',')
-     load_file = load_file.reshape(2,80,3,1)
-     print(load_file.ndim)
-     class_prediction = np.argmax(loaded_model.predict(load_file),axis=1)
-     return('ola')   
+    file = request.files['file']
+    load_file = np.loadtxt(file,delimiter=',')
+    dataShaped = read_text_file(load_file)
+    class_prediction = np.argmax(loaded_model.predict(dataShaped),axis=1)
+    class_prediction = {"campo":class_prediction}
+    encodedNumpyData = json.dumps(class_prediction, cls=NumpyArrayEncoder)
+    return(encodedNumpyData)
+
 '''
      result = class_prediction
      print(class_prediction)
@@ -66,7 +68,7 @@ def predict():
 '''
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=8000)
     
     
     '''
