@@ -6,4 +6,4 @@ numpy==1.21.6
 Pillow==9.5.0
 pytest==7.3.1
 requests==2.30.0
-tensorflow>=2.12
+tensorflow==2.11.0
