@@ -46,6 +46,7 @@ def predict():
     file = request.files['file']
     load_file = np.loadtxt(file,delimiter=',')
     dataShaped = read_text_file(load_file)
+    print(dataShaped)
     class_prediction = np.argmax(load_model.predict(dataShaped),axis=1)
     class_prediction = {"campo":class_prediction}
     encodedNumpyData = json.dumps(class_prediction, cls=NumpyArrayEncoder)
@@ -95,8 +96,9 @@ def predict():
 
 #%%
 '''
-vetor = np.random.rand(720)
+vetor = np.random.rand(2400000)
 #file = vetor.reshape(2,80,3,1)
 np.savetxt('vetor20.txt', vetor)
-'''
 
+
+'''
