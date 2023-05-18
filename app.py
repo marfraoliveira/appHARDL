@@ -6,6 +6,7 @@ from keras.models import model_from_json
 from itens import identificacao,movimento
 import json
 from json import JSONEncoder
+from sklearn.preprocessing import StandardScaler
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
@@ -46,7 +47,6 @@ def predict():
     file = request.files['file']
     load_file = np.loadtxt(file,delimiter=',')
     dataShaped = read_text_file(load_file)
-    print(dataShaped)
     class_prediction = np.argmax(load_model.predict(dataShaped),axis=1)
     class_prediction = {"campo":class_prediction}
     encodedNumpyData = json.dumps(class_prediction, cls=NumpyArrayEncoder)
