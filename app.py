@@ -50,7 +50,8 @@ def predict():
     class_prediction = np.argmax(load_model.predict(dataShaped),axis=1)
     class_prediction = {"campo":class_prediction}
     encodedNumpyData = json.dumps(class_prediction, cls=NumpyArrayEncoder)
-    return(encodedNumpyData)
+    #return(encodedNumpyData)
+    return('encodedNumpyData')
 
 '''
      result = class_prediction
