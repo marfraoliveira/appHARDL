@@ -6,7 +6,6 @@ from keras.models import model_from_json
 from itens import identificacao,movimento
 import json
 from json import JSONEncoder
-from sklearn.preprocessing import StandardScaler
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
