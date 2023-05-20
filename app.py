@@ -1,11 +1,13 @@
-from flask import Flask,request,jsonify,make_response
+from distutils.log import debug
+from fileinput import filename
+from flask import *  
 import numpy as np
 import pandas as pd
 import keras.models
 from keras.models import model_from_json
-from itens import identificacao,movimento
 import json
 from json import JSONEncoder
+from result import resultado
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
@@ -39,18 +41,52 @@ def read_text_file(file):
 
 @app.route('/',methods=['GET'])
 def index_view():
-    return jsonify(identificacao)
+    return jsonify('resultado')
 
 @app.route('/predict',methods=['POST'])
 def predict():
-    file = request.files['file']
+    f = request.files['file']
+    print('Arquivo',f.filename,'salvo com sucesso !!!')
+    f.save(f.filename)
+    file = open(f.filename)
+    lines = file.readlines()
+    data_shaped = read_text_file(lines)
+    data_numpy = np.asarray(data_shaped)
+    data_numpy = np.asarray(data_numpy, dtype = float)
+    print(data_numpy)
+    print(data_numpy.ndim)
+    class_predict = np.argmax(load_model.predict(data_numpy),axis=1)
+    #print(class_prediction)
+    print(class_predict)
+    if class_predict.max() == 0:
+       return jsonify({'placement':('Andando')})
+    if class_predict.max() == 1:
+       return jsonify({'placement':'Correndo'})
+    if class_predict.max() == 2:
+       return jsonify({'placement':'Subindo Escadas'})
+    if class_predict.max() == 3:
+       return jsonify({'placement':'Descendo Escadas'})
+    if class_predict.max() == 4:
+       return jsonify({'placement':'Em Pé'})
+    if class_predict.max() == 5:
+       return jsonify({'placement':'Deitado'})
+   
+
+
+
+
+
+app.run(host='0.0.0.0',port=3000)
+
+'''
     load_file = np.loadtxt(file,delimiter=',')
     dataShaped = read_text_file(load_file)
     class_prediction = np.argmax(load_model.predict(dataShaped),axis=1)
     class_prediction = {"campo":class_prediction}
     encodedNumpyData = json.dumps(class_prediction, cls=NumpyArrayEncoder)
-    #return(encodedNumpyData)
-    return('encodedNumpyData')
+    resultado.append(encodedNumpyData)
+    return resultado
+'''
 
 '''
      result = class_prediction
@@ -69,11 +105,9 @@ def predict():
         return jsonify({'placement':'Deitado'})
 '''
 
-if __name__ == '__main__':
-    app.run(debug=True,port=8000)
+  
     
-    
-    '''
+'''
 @app.route('/predict',methods=['POST'])
 def predict():
      file = request.files['file']
@@ -96,9 +130,9 @@ def predict():
 
 #%%
 '''
-vetor = np.random.rand(2400000)
-#file = vetor.reshape(2,80,3,1)
-np.savetxt('vetor20.txt', vetor)
-
-
+vetor = np.random.rand(240)
+#file = vetor.reshape(1,80,3,1)
+np.savetxt('vetor22.txt', vetor)
 '''
+
+
