@@ -52,8 +52,6 @@ def predict():
     data_shaped = read_text_file(lines)
     data_numpy = np.asarray(data_shaped)
     data_numpy = np.asarray(data_numpy, dtype = float)
-    print(data_numpy)
-    print(data_numpy.ndim)
     class_predict = np.argmax(load_model.predict(data_numpy),axis=1)
     #print(class_prediction)
     print(class_predict)
@@ -70,8 +68,6 @@ def predict():
     if class_predict.max() == 5:
        return jsonify({'placement':'Deitado'})
    
-
-
 
 
 
