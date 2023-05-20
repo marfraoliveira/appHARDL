@@ -7,7 +7,6 @@ import keras.models
 from keras.models import model_from_json
 import json
 from json import JSONEncoder
-from result import resultado
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
