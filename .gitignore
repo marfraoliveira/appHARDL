@@ -13,3 +13,14 @@ node_modules
 appHARDL-env
 
 __pycache__
+
+.spyproject/
+
+RESULTADO DOS MODELO/
+data100Hz.csv
+modelCNN100.py
+modelCNNWISDM.py
+
+model.h5
+model.json
+

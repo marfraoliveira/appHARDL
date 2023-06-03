@@ -67,7 +67,14 @@ def predict():
        return jsonify({'placement':'Em Pé'})
     if class_predict.max() == 5:
        return jsonify({'placement':'Deitado'})
-   
+ 
+@app.route('/teste',methods=['POST'])
+def teste():
+    f = request.files['file']
+    f.save(f.filename)
+    request.files['file']
+    print('Arquivo',f.filename,'salvo com sucesso !!!')
+    return 'testes'    
 
 
 
