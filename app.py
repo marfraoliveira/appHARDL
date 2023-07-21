@@ -45,7 +45,7 @@ def json_example():
         class_predict = np.argmax(load_model.predict(data),axis=None)
        
         if class_predict.max() == 0:
-           return jsonify({'placement':('Andandoo')})
+           return jsonify({'placement':('Andando')})
            print(class_predict)
         if class_predict.max() == 1:
            return jsonify({'placement':'Correndo'})
@@ -58,8 +58,7 @@ def json_example():
         if class_predict.max() == 5:
            return jsonify({'placement':'Deitado'})
         else:
-           print('algo deu errado!')
-           return jsonify({'placement':str(class_predict)})
+           return jsonify({'placement':str('Movimento não reconhecido')})
     
     
 
