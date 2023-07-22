@@ -12,6 +12,10 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def teste():
+    return('Teste do Protocolo GET')
+    
 @app.route('/json', methods=['POST'])
 def json_example():
     # opening and store file in a variable
