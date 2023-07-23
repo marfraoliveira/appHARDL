@@ -46,7 +46,7 @@ def predict():
         data[0].ndim
       
               
-         data = data.reshape(-1,80,3)
+        data = data.reshape(-1,80,3)
         class_predict = np.argmax(load_model.predict(data),axis=1)
         
         if class_predict.max() == 0:
