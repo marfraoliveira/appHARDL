@@ -12,12 +12,13 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET'])
-def teste():
+def result():
     return('Teste do Protocolo GET')
     
-@app.route('/json', methods=['POST'])
-def json_example():
+@app.route('/predict', methods=['POST'])
+def predict():
     # opening and store file in a variable
     #try:
         #Loading CNN model
@@ -40,17 +41,16 @@ def json_example():
         df['y'] = df['y'].astype('float')
         df['z'] = df['z'].astype('float')
         
-        print(df.isnull())
+        #print(df.isnull())
         data = df.to_numpy()
         data[0].ndim
       
               
-        data = data.reshape(-1,80,3)
-        class_predict = np.argmax(load_model.predict(data),axis=None)
-       
+         data = data.reshape(-1,80,3)
+        class_predict = np.argmax(load_model.predict(data),axis=1)
+        
         if class_predict.max() == 0:
-           return jsonify({'placement':('Andando')})
-           print(class_predict)
+           return jsonify({'placement':'Andando'})
         if class_predict.max() == 1:
            return jsonify({'placement':'Correndo'})
         if class_predict.max() == 2:
@@ -62,9 +62,6 @@ def json_example():
         if class_predict.max() == 5:
            return jsonify({'placement':'Deitado'})
         else:
-           return jsonify({'placement':str('Movimento não reconhecido')})
-    
-    
-
+           return jsonify({'placement':str(class_predict)})
 
 app.run(debug=False,host='0.0.0.0',port=3000)
