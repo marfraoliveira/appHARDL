@@ -41,18 +41,18 @@ def api_endpoint():
     
      
     if class_predict.max() == 0:
-        return jsonify({'placement':str('Walking')})
+        return jsonify({'placement':str(class_predict)})
     if class_predict.max() == 1:
-        return jsonify({'placement':str('Jogging')})
+        return jsonify({'placement':str(class_predict)})
     if class_predict.max() == 2:
-       return jsonify({'placement':str('Upstairs')})
+       return jsonify({'placement':str(class_predict)})
     if class_predict.max() == 3:
-       return jsonify({'placement':str('Downstairs')})
+       return jsonify({'placement':str(class_predict)})
     if class_predict.max() == 4:
-       return jsonify({'placement':str('Sitting')})
+       return jsonify({'placement':str(class_predict)})
         
     else:
-       return jsonify({'placement':str('Standing')})
+       return jsonify({'placement':str(class_predict)})
     
     
     # Realiza algum processamento com os dados e prepara uma resposta JSON
