@@ -35,7 +35,7 @@ def predict():
         #print(df.isnull())
         #data = df.to_numpy()
         data = data.reshape(-1,80,3)
-        model = load_model('./model.h5')
+        model = load_model('model.h5')
         for _ in range(1):
             class_predict = np.argmax(model.predict(data),axis=1)
         mapeamento = {0:'Downstairs', 1:'Jogging', 2:'Sitting', 3:'Standing',4:'Upstairs',5:'Walking'}
