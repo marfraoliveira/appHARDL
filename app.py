@@ -1,18 +1,21 @@
 from distutils.log import debug
 from fileinput import filename
-#from flask import *  
+from flask import *  
 from flask import Flask,request,jsonify  
 import numpy as np
 import pandas as pd
 import keras.models
 from keras.models import model_from_json
 import json
-#from json import JSONEncoder
+from json import JSONEncoder
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 
 app = Flask(__name__)
+
+
+#%%
 
 
 # Carregue o modelo uma vez ao iniciar o servidor Flask
@@ -45,7 +48,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=5000)
-
-        return jsonify({'args':str(rotulos_mapeados)})
-
-app.run(debug=False,host='0.0.0.0',port=5000)
