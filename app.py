@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 #%%
 # Carregue o modelo uma vez ao iniciar o servidor Flask
-model = load_model('./modelExit.h5')
+model = load_model('./modelCNN.h5')
 import time
 
 
@@ -46,3 +46,7 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=5000)
+
+
+
+
