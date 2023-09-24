@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 #%%
 # Carregue o modelo uma vez ao iniciar o servidor Flask
-model = load_model('./modelCNN.h5')
+model = load_model('modelCNN.h5')
 import time
 
 
