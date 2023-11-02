@@ -1,4 +1,4 @@
-scikit-learn>=0.18
+scikit-learn==0.24.2
 keras==2.11.0
 gunicorn==19.9.0
 requests==2.30.0
